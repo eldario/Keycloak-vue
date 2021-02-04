@@ -1,0 +1,30 @@
+version: '3.3'
+
+networks:
+  kcvue-network:
+    driver: bridge
+
+services:
+
+  keycloak:
+    image: jboss/keycloak:9.0.3
+    ports:
+      - "9902:8080"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/vue_realm.json
+    volumes:
+      - "./vue_realm.json:/tmp/vue_realm.json"
+    networks:
+      - kcvue-network
+
+  web: # is used for a work with frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '9901:8080'
+    working_dir: /app
+    networks:
+      - kcvue-network
