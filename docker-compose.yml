@@ -16,6 +16,8 @@ services:
       KEYCLOAK_IMPORT: /tmp/vue_realm.json
     volumes:
       - "./vue_realm.json:/tmp/vue_realm.json"
+      - "./keycloak/themes/avtocod:/opt/jboss/keycloak/themes/avtocod"
+      - "./keycloak/themes/test1:/opt/jboss/keycloak/themes/test1"
     networks:
       - kcvue-network
 
